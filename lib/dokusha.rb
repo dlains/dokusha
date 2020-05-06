@@ -1,3 +1,4 @@
+require 'dokusha/configuration'
 require 'dokusha/kanji'
 require 'dokusha/meaning'
 require 'dokusha/radical'
@@ -13,5 +14,16 @@ end
 
 module Dokusha
   class Error < StandardError; end
-  # Your code goes here...
+
+  class << self
+    attr_writer :configuration
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.configure
+    yield(configuration)
+  end
 end
