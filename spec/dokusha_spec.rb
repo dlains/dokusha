@@ -3,6 +3,12 @@ RSpec.describe Dokusha do
     expect(Dokusha::VERSION).not_to be nil
   end
 
+  describe '#graph' do
+    it 'returns a RedisGraph connection' do
+      expect(Dokusha.graph).to be_a(RedisGraph)
+    end
+  end
+  
   describe '#configure' do
     before do
       Dokusha.configure do |config|

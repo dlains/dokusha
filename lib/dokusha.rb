@@ -1,3 +1,5 @@
+require 'redisgraph'
+
 require 'dokusha/configuration'
 require 'dokusha/kanji'
 require 'dokusha/meaning'
@@ -14,6 +16,10 @@ end
 
 module Dokusha
   class Error < StandardError; end
+
+  def self.graph
+    @graph ||= RedisGraph.new("dokusha", redis_options = configuration.redis_options)
+  end
 
   class << self
     attr_writer :configuration
