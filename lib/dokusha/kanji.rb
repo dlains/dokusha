@@ -38,5 +38,21 @@ module Dokusha
       @meanings = []
       @readings = []
     end
+
+    def self.find(glyph)
+      query = "MATCH (k:kanji {glyph: '#{glyph}'}) RETURN k"
+      response = Dokusha.graph.query(query)
+      return Kanji.new(response.resultset[0][0][0]["glyph"], response.resultset[0][0][1]["strokes"], Radical.new("一", 1, "One", "いち"))
+    end
+
+    def create
+      query = "CREATE (:kanji {glyph: '#{@glyph}', strokes: #{@strokes}})"
+      Dokusha.graph.query(query)
+    end
+
+    def delete
+      query = "MATCH(k:kanji {glyph: '#{@glyph}'}) DELETE k"
+      Dokusha.graph.query(query)
+    end
   end
 end

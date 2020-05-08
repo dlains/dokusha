@@ -10,6 +10,9 @@
 # rspec failure tracking
 .rspec_status
 
+# byebug
+.byebug_history
+
 # RVM files
 .ruby-version
 .ruby-gemset
